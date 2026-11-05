@@ -93,7 +93,7 @@ textarea{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var
 <div id="app"><header class="top"><h1>Petualangan 4 Pos<small>Misi Penyelamatan Karier</small></h1></header><section class="panel"><h2>Gabung kelas</h2><b>Kode kelas</b><input id="kd" inputmode="numeric" maxlength="8" placeholder="Kode di papan guru"><b style="display:block;margin-top:12px">Kelompokmu</b><div class="cnt"><button class="btn gb line" style="min-width:64px" onclick="setG(1)">1</button><button class="btn gb line" style="min-width:64px" onclick="setG(2)">2</button><button class="btn gb line" style="min-width:64px" onclick="setG(3)">3</button><button class="btn gb line" style="min-width:64px" onclick="setG(4)">4</button></div><b>Namamu</b><input id="nm" maxlength="20" placeholder="Nama panggilan"><div id="er" class="mut"></div><button class="btn alt" onclick="join()">Masuk</button></section></div>
 <script>
 var $=function(s){return document.querySelector(s)},app=$('#app');
-var SB_URL='',SB_KEY='';
+var SB_URL='https://abcd1234.supabase.co',SB_KEY='sb_publishable_xxxxxxxx';
 var TC=['#2f5fd0','#ef7a2b','#3f9f4d','#8a56d6','#d6407a','#1d9fb5'],PC=['#2f5fd0','#ef7a2b','#3f9f4d','#2f5fd0'];
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 var ST=[
