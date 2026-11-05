@@ -148,15 +148,16 @@ function menu(){clearInterval(tm);var all=S.done.every(Boolean);sync();
   app.innerHTML=hdr(chip())+'<section class="panel"><h2>'+(all?'Petualangan selesai!':'Pilih pos')+'</h2><p class="mut">'+(all?'Skor akhirmu '+S.skor+'. Skormu sudah masuk ke kelompok. Lihat pemenang di papan guru.':'Selesaikan keempat pos. Jawaban benar bernilai 10 poin.')+'</p><div class="road">'+ST.map(function(s,i){return '<button class="stn'+(S.done[i]?' done':'')+'" '+(S.done[i]?'disabled':'onclick="go('+i+')"')+' style="--c:'+PC[i]+'"><span class="pin">'+(S.done[i]?'✓':i+1)+'</span><b>'+s.n+'</b><small>'+s.g+'</small></button>'}).join('')+'</div><div id="net" class="mut"></div></section>'}
 function go(i){i===3?mission():quiz(i,0)}
 
+function shuf(n){var a=[],i,j,t;for(i=0;i<n;i++)a.push(i);for(i=n-1;i>0;i--){j=Math.floor(Math.random()*(i+1));t=a[i];a[i]=a[j];a[j]=t}return a}
 function quiz(si,i){clearInterval(tm);var s=ST[si];
   if(i>=s.q.length){S.done[si]=1;sv();return menu()}
-  cur={si:si,i:i,done:0};var left=20;
-  app.innerHTML=hdr(chip())+'<section class="panel"><div class="meta"><span>Pos '+(si+1)+': '+s.g+'</span><span>'+(i+1)+'/'+s.q.length+'</span></div><div class="bar"><i id="bi"></i></div><p class="big">'+s.q[i][0]+'</p><div class="opts">'+s.o.map(function(o,k){return '<button class="opt" onclick="pick('+k+')">'+o+'</button>'}).join('')+'</div><div id="fb"></div></section>';
+  cur={si:si,i:i,done:0,ord:shuf(s.o.length)};var left=20;
+  app.innerHTML=hdr(chip())+'<section class="panel"><div class="meta"><span>Pos '+(si+1)+': '+s.g+'</span><span>'+(i+1)+'/'+s.q.length+'</span></div><div class="bar"><i id="bi"></i></div><p class="big">'+s.q[i][0]+'</p><div class="opts">'+cur.ord.map(function(oi,k){return '<button class="opt" onclick="pick('+k+')">'+s.o[oi]+'</button>'}).join('')+'</div><div id="fb"></div></section>';
   tm=setInterval(function(){left-=.25;$('#bi').style.width=Math.max(left,0)/20*100+'%';if(left<=0)pick(-1)},250)}
 function pick(k){
   if(cur.done)return;cur.done=1;clearInterval(tm);
-  var it=ST[cur.si].q[cur.i],ok=k===it[1];S.jawab++;if(ok){S.skor+=10;S.benar++}sv();
-  document.querySelectorAll('.opt').forEach(function(b,j){b.disabled=true;if(j===it[1])b.classList.add('ok');else if(j===k)b.classList.add('bad')});
+  var it=ST[cur.si].q[cur.i],ok=k>=0&&cur.ord[k]===it[1];S.jawab++;if(ok){S.skor+=10;S.benar++}sv();
+  document.querySelectorAll('.opt').forEach(function(b,j){b.disabled=true;if(cur.ord[j]===it[1])b.classList.add('ok');else if(j===k)b.classList.add('bad')});
   $('#fb').innerHTML='<div class="fb '+(ok?'good':'miss')+'"><b>'+(k<0?'Waktu habis.':ok?'Benar! +10 poin.':'Belum tepat.')+'</b> '+it[2]+'</div><div class="sticky"><button class="btn" onclick="quiz('+cur.si+','+(cur.i+1)+')">Lanjut</button></div><div id="net" class="mut"></div>';
   $('#sk').textContent=S.skor;try{sync()}catch(e){}try{$('#fb').scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}}
 
@@ -172,7 +173,7 @@ function sync(){if(!SB_URL||!S)return;try{
 function boardForm(){var k=String(1000+Math.floor(Math.random()*9000));
   app.innerHTML=hdr('')+'<section class="panel"><h2>Papan guru</h2><p class="mut">Bagikan kode kelas ini kepada siswa. Ubah bila perlu.</p><input id="kd" value="'+k+'" inputmode="numeric" maxlength="8"><button class="btn alt" onclick="board($(\'#kd\').value.trim())">Buka papan</button>'+(SB_URL?'':'<p class="fb miss">Pemantauan belum aktif: isi SB_URL dan SB_KEY di bagian atas file.</p>')+'</section>'}
 function board(k){if(!k)return;B={k:k,rows:[],show:0};clearInterval(pl);
-  app.innerHTML=hdr('')+'<section class="panel center"><p class="mut">Siswa buka tautan ini di HP, pilih Siswa mulai bermain, lalu masukkan kode</p><b>'+esc(location.href.split('#')[0])+'</b><div class="code">'+esc(k)+'</div></section><div id="wn"></div><section class="panel"><h2>Skor kelompok</h2><div class="chars" id="gp"></div><div class="stat" id="st"></div></section><section class="panel"><h2>Peringkat siswa</h2><div class="lb" id="lb"></div></section><section class="panel"><h2>Langkah realistis siswa</h2><div class="chars" id="fd"></div><button class="btn alt" onclick="B.show=1;draw(B.rows)">Umumkan pemenang</button> <button class="btn line" onclick="csv()">Unduh rekap (CSV)</button> <span id="net" class="mut"></span></section>';
+  app.innerHTML=hdr('')+'<section class="panel center"><p class="mut">Siswa buka tautan ini di HP, pilih Siswa mulai bermain, lalu masukkan kode</p><b>'+esc(location.href.split('#')[0])+'</b><div class="code">'+esc(k)+'</div></section><div id="wn"></div><section class="panel"><h2>Skor kelompok</h2><div class="chars" id="gp"></div><div class="stat" id="st"></div></section><section class="panel"><h2>Peringkat siswa</h2><div class="lb" id="lb"></div></section><section class="panel"><h2>Langkah realistis siswa</h2><div class="chars" id="fd"></div><button class="btn line" onclick="csv()">Unduh rekap (CSV)</button> <span id="net" class="mut"></span></section>';
   pl=setInterval(tick,2500);tick()}
 function tick(){
   if(!SB_URL){$('#lb').innerHTML='<p class="fb miss">Pemantauan belum aktif: isi SB_URL dan SB_KEY di bagian atas file.</p>';return}
