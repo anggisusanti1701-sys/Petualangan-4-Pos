@@ -12,6 +12,10 @@ Lalu isi SB_URL dan SB_KEY pada baris var SB_URL di dalam file.
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Petualangan 4 Pos Online</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1c2740">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet"><style>
 :root{--bg:#f4f6fb;--card:#fff;--ink:#1c2740;--mut:#5b6785;--line:#dde3f0;--blue:#2f5fd0;--orange:#ef7a2b;--green:#3f9f4d;--okbg:#e1f4e6;--ok:#2e9e55;--badbg:#fbe4e4;--bad:#d44a4a;--tint:#fff3e8}
@@ -194,6 +198,7 @@ function csv(){var q=function(v){v=String(v==null?'':v);if(/^[=+\-@]/.test(v))v=
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+t],{type:'text/csv'}));a.download='rekap-kelas-'+B.k+'.csv';a.click()}
 new MutationObserver(function(){window.scrollTo(0,0)}).observe(app,{childList:true});
 if(location.hash==='#guru')boardForm();else home();
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
 
 </script>
 </body>

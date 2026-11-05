@@ -1,0 +1,26 @@
+{
+ "id": "./",
+ "name": "Petualangan 4 Pos: Papan Guru",
+ "short_name": "4 Pos",
+ "description": "Papan guru untuk memantau skor siswa pada game BK karier",
+ "start_url": "./#guru",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#111a2e",
+ "theme_color": "#1c2740",
+ "lang": "id",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any maskable"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}
