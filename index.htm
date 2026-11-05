@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<!--
-SIAPKAN DATABASE (sekali saja), jalankan di Supabase > SQL Editor:
-create table players(kelas text, id text, nama text, kelompok int default 1, skor int default 0, benar int default 0, jawab int default 0, pos int default 0, langkah text default '', updated timestamptz default now(), primary key(kelas,id));
-alter table players enable row level security;
-create policy "buka" on players for all to anon using (true) with check (true);
-Jika tabel players sudah dibuat sebelumnya, cukup jalankan: alter table players add column kelompok int default 1;
-Lalu isi SB_URL dan SB_KEY pada baris'https://abcd1234.supabase.co',SB_KEY='sb_publishable_xxxxxxxx'; di dalam file.
--->
 <html lang="id"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
