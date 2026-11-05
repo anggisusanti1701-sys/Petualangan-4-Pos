@@ -5,7 +5,7 @@ create table players(kelas text, id text, nama text, kelompok int default 1, sko
 alter table players enable row level security;
 create policy "buka" on players for all to anon using (true) with check (true);
 Jika tabel players sudah dibuat sebelumnya, cukup jalankan: alter table players add column kelompok int default 1;
-Lalu isi SB_URL dan SB_KEY pada baris var SB_URL di dalam file.
+Lalu isi SB_URL dan SB_KEY pada baris'https://abcd1234.supabase.co',SB_KEY='sb_publishable_xxxxxxxx'; di dalam file.
 -->
 <html lang="id"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
